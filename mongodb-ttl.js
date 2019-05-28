@@ -41,5 +41,6 @@ MongoClient.connect(url, (err, db) => {
     //Insert the prepared document
     dbo.collection(myCollection).insert(document, (err, doc) => {
         if (!err) console.log('Document inserted');
+        db.close();
     });
 });
