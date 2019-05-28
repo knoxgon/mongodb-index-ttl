@@ -12,10 +12,13 @@ MongoClient.connect(url, (err, db) => {
     //Retrieve your chosen database
     let dbo = db.db(yourMongoDatabase);
 
+    //Set your collection
+    let myCollection = "tokens";
+
     /*  Create a mongodb index to remove any document with 'createdAt' 
        field every 30 seconds.
    */
-    dbo.collection("tokens")
+    dbo.collection(myCollection)
         .createIndex({ "createdAt": 1 }, { expireAfterSeconds: 30 },
             (err, dbResult) => {
                 if (err) throw err;
@@ -34,9 +37,6 @@ MongoClient.connect(url, (err, db) => {
         It is required that you have the field 'createdAt' in your document (table)
         so the mongodb indexer can go through and remove it based on the TTL condition
     */
-
-    //Set your collection
-    let myCollection = "tokens";
 
     //Insert the prepared document
     dbo.collection(myCollection).insert(document, (err, doc) => {
