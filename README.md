@@ -6,7 +6,7 @@ A tutorial about how to use MongoDB index' ttl feature in NodeJS.
 
 Initialize your connection to the MongoDB
 
-```
+```js
 const MongoClient = require('mongodb').MongoClient;
 
 //Set your database
@@ -27,7 +27,7 @@ MongoClient.connect(url, (err, db) => {
 
 ### Create an Indexer for your collection
 
-```
+```js
 dbo.collection(myCollection)
   .createIndex({ "createdAt": 1 }, { expireAfterSeconds: 30 },
       (err, dbResult) => {
@@ -42,7 +42,7 @@ The ``expireAfterSeconds`` is the field you tell your database to delete data ol
 
 ### Create a data
 
-```
+```js
 //Prepare your document
 let document = {
     createdAt: new Date(),
@@ -54,7 +54,7 @@ let document = {
 Take a closer look at the first field: 'createdAt' which is set by the current time ``new Date()`` to tell the indexer for future removal of the record.
 
 ### Insert the data
-```
+```js
 //Insert the prepared document
 dbo.collection(myCollection).insert(document, (err, doc) => {
     if (!err)
